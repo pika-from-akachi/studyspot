@@ -538,6 +538,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   .footer-brand { grid-column: 1 / -1; }
 }
 @media (max-width: 560px) {
+  /* English CTA ("Get started") is wider than its Chinese counterpart and
+     pushes the header actions off-screen on small phones — the CTA is
+     redundant here (hero + mobile menu both carry it), so drop it. */
+  .header-actions .btn-primary { display: none; }
   .needs-grid { grid-template-columns: 1fr 1fr; }
   .stat { padding: 8px 4px; }
   .hero-ctas .btn { flex: 1; }
