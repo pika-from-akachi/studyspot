@@ -21,7 +21,11 @@ const App = {
   },
 
   /* ---- i18n ----------------------------------------------------------- */
-  t(obj) { return (obj && (obj[this.lang] || obj.zh)) || ''; },
+  // Accepts { zh, en } objects or plain strings (returned as-is).
+  t(obj) {
+    if (typeof obj === 'string') return obj;
+    return (obj && (obj[this.lang] || obj.zh)) || '';
+  },
 
   setLang(lang) {
     this.lang = lang;
@@ -82,6 +86,7 @@ const App = {
     this.renderHeader(route);
     this.renderMain(route, params);
     this.renderNav(route);
+    this.renderSidebar(route);
   },
 
   matchRoute(seg) {
@@ -103,84 +108,59 @@ const App = {
     return { name: 'home' };
   },
 
+  activeTabFor(route) {
+    switch (route.name) {
+      case 'home': case 'spaces': case 'spaceDetail': case 'checkin': return 'home';
+      case 'discover': return 'discover';
+      case 'activities': case 'activityDetail': case 'register': case 'createActivity': return 'activities';
+      case 'profile': case 'favorites': case 'myActivities': case 'support': case 'settings': return 'profile';
+      default: return 'home';
+    }
+  },
+
+  routeTitle(route) {
+    return {
+      discover: { zh: '发现', en: 'Discover' },
+      spaces: { zh: '附近空间', en: 'Nearby Spaces' },
+      spaceDetail: { zh: '空间详情', en: 'Space Details' },
+      checkin: { zh: '签到', en: 'Check In' },
+      activities: { zh: '活动', en: 'Events' },
+      activityDetail: { zh: '活动详情', en: 'Event Details' },
+      register: { zh: '活动报名', en: 'Register' },
+      createActivity: { zh: '创建活动', en: 'Create Event' },
+      profile: { zh: '我的', en: 'Profile' },
+      favorites: { zh: '我的收藏', en: 'Favorites' },
+      myActivities: { zh: '我的活动', en: 'My Activities' },
+      support: { zh: '支持资源', en: 'Support' },
+      settings: { zh: '设置', en: 'Settings' },
+    }[route.name] || null;
+  },
+
   renderHeader(route) {
     const el = document.getElementById('app-header');
     const t = this.t.bind(this);
-    const back = `<button class="icon-btn" data-nav="back" aria-label="Back">${icon('arrow-left')}</button>`;
+    // Sub-pages show a back button on mobile; it is hidden on desktop where the sidebar covers navigation.
+    const showBack = ['spaces', 'spaceDetail', 'checkin', 'activityDetail', 'register', 'createActivity',
+      'favorites', 'myActivities', 'support', 'settings'].includes(route.name);
+    const title = this.routeTitle(route);
 
-    switch (route.name) {
-      case 'home':
-        el.innerHTML = `
-          <div class="row gap-sm">
-            <div class="icon-tile" style="background:var(--primary-base);width:32px;height:32px;border-radius:12px">${icon('map-pin')}</div>
-            <span class="page-title" style="font-size:20px">StudySpot</span>
-          </div>
-          <button class="lang-pill" data-action="toggle-lang">
-            ${icon('globe')} ${this.lang === 'zh' ? 'EN' : '中文'}
-          </button>`;
-        break;
-      case 'discover':
-        el.innerHTML = `<span class="page-title">${t({ zh: '发现', en: 'Discover' })}</span>
-          <button class="lang-pill" data-action="toggle-lang">${icon('globe')} ${this.lang === 'zh' ? 'EN' : '中文'}</button>`;
-        break;
-      case 'spaces':
-        el.innerHTML = `<div class="row gap-sm">${back}</div>
-          <span class="page-title">${t({ zh: '附近空间', en: 'Nearby Spaces' })}</span>
-          <div style="width:40px"></div>`;
-        break;
-      case 'spaceDetail':
-      case 'checkin':
-        el.innerHTML = `<div class="row gap-sm">${back}</div>
-          <span class="page-title">${route.name === 'checkin' ? t({ zh: '签到', en: 'Check In' }) : t({ zh: '空间详情', en: 'Space Details' })}</span>
-          <div style="width:40px"></div>`;
-        break;
-      case 'activities':
-        el.innerHTML = `<span class="page-title">${t({ zh: '活动', en: 'Activities' })}</span>
-          <button class="icon-btn" data-nav="#/activities/create" aria-label="${t({ zh: '创建活动', en: 'Create event' })}">${icon('plus')}</button>`;
-        break;
-      case 'activityDetail':
-      case 'register':
-        el.innerHTML = `<div class="row gap-sm">${back}</div>
-          <span class="page-title">${route.name === 'register' ? t({ zh: '活动报名', en: 'Register' }) : t({ zh: '活动详情', en: 'Event Details' })}</span>
-          <div style="width:40px"></div>`;
-        break;
-      case 'createActivity':
-        el.innerHTML = `<div class="row gap-sm">${back}</div>
-          <span class="page-title">${t({ zh: '创建活动', en: 'Create Event' })}</span>
-          <div style="width:40px"></div>`;
-        break;
-      case 'profile':
-        el.innerHTML = `<span class="page-title">${t({ zh: '我的', en: 'Profile' })}</span>
-          <button class="icon-btn" data-nav="settings" aria-label="Settings">${icon('settings')}</button>`;
-        break;
-      case 'favorites':
-        el.innerHTML = `<div class="row gap-sm">${back}</div>
-          <span class="page-title">${t({ zh: '我的收藏', en: 'Favorites' })}</span>
-          <div style="width:40px"></div>`;
-        break;
-      case 'myActivities':
-        el.innerHTML = `<div class="row gap-sm">${back}</div>
-          <span class="page-title">${t({ zh: '我的活动', en: 'My Activities' })}</span>
-          <div style="width:40px"></div>`;
-        break;
-      case 'support':
-        el.innerHTML = `<div class="row gap-sm">${back}</div>
-          <span class="page-title">${t({ zh: '支持资源', en: 'Support' })}</span>
-          <div style="width:40px"></div>`;
-        break;
-      case 'settings':
-        el.innerHTML = `<div class="row gap-sm">${back}</div>
-          <span class="page-title">${t({ zh: '设置', en: 'Settings' })}</span>
-          <div style="width:40px"></div>`;
-        break;
-      default:
-        el.innerHTML = '';
-    }
+    const left = title
+      ? `<div class="h-left">${showBack ? `<button class="icon-btn" data-nav="back" aria-label="Back">${icon('arrow-left')}</button>` : ''}<span class="page-title">${t(title)}</span></div>`
+      : `<div class="h-left"><div class="icon-tile" style="background:var(--primary-base);width:32px;height:32px;border-radius:12px">${icon('map-pin')}</div><span class="page-title" style="font-size:20px">StudySpot</span></div>`;
+
+    const right = `${route.name === 'activities'
+      ? `<button class="icon-btn" data-nav="#/activities/create" aria-label="${t({ zh: '创建活动', en: 'Create event' })}">${icon('plus')}</button>`
+      : ''}<button class="lang-pill" data-action="toggle-lang">${icon('globe')} ${this.lang === 'zh' ? 'EN' : '中文'}</button>`;
+
+    el.innerHTML = `${left}<div class="h-right">${right}</div>`;
   },
 
   renderMain(route, params) {
     const main = document.getElementById('app-main');
     const v = Views;
+    const narrow = ['spaceDetail', 'activityDetail', 'checkin', 'register', 'createActivity', 'settings'].includes(route.name);
+    main.classList.toggle('main-narrow', narrow);
+    main.classList.toggle('main-wide', !narrow);
     switch (route.name) {
       case 'home': main.innerHTML = v.home(); break;
       case 'discover': main.innerHTML = v.discover(params.get('type')); break;
@@ -203,26 +183,55 @@ const App = {
   renderNav(route) {
     const el = document.getElementById('bottom-nav');
     const t = this.t.bind(this);
+    const activeTab = this.activeTabFor(route);
     const tabs = [
       { key: 'home',       hash: '#/',             label: { zh: '首页', en: 'Home' },      icon: 'home' },
       { key: 'discover',   hash: '#/discover',     label: { zh: '发现', en: 'Discover' },  icon: 'compass' },
       { key: 'activities', hash: '#/activities',   label: { zh: '活动', en: 'Events' },    icon: 'calendar' },
       { key: 'profile',    hash: '#/profile',      label: { zh: '我的', en: 'Profile' },   icon: 'user' },
     ];
-    const activeTab = (() => {
-      switch (route.name) {
-        case 'home': case 'spaces': case 'spaceDetail': case 'checkin': return 'home';
-        case 'discover': return 'discover';
-        case 'activities': case 'activityDetail': case 'register': case 'createActivity': return 'activities';
-        case 'profile': case 'favorites': case 'myActivities': case 'support': case 'settings': return 'profile';
-        default: return 'home';
-      }
-    })();
     el.innerHTML = tabs.map(tab => `
       <button class="nav-item ${activeTab === tab.key ? 'active' : ''}" data-nav="${tab.hash}" aria-label="${t(tab.label)}">
         <span class="nav-icon">${icon(tab.icon)}</span>
         <span class="nav-label">${t(tab.label)}</span>
       </button>`).join('');
+  },
+
+  renderSidebar(route) {
+    const el = document.getElementById('sidebar');
+    if (!el) return;
+    const t = this.t.bind(this);
+    const activeTab = this.activeTabFor(route);
+    const tabs = [
+      { key: 'home',       hash: '#/',             label: { zh: '首页', en: 'Home' },      icon: 'home' },
+      { key: 'discover',   hash: '#/discover',     label: { zh: '发现', en: 'Discover' },  icon: 'compass' },
+      { key: 'activities', hash: '#/activities',   label: { zh: '活动', en: 'Events' },    icon: 'calendar' },
+      { key: 'profile',    hash: '#/profile',      label: { zh: '我的', en: 'Profile' },   icon: 'user' },
+    ];
+    const quick = [
+      { hash: '#/profile/favorites', label: { zh: '我的收藏', en: 'Favorites' },   icon: 'bookmark' },
+      { hash: '#/profile/support',   label: { zh: '支持资源', en: 'Support' },     icon: 'heart' },
+      { hash: '#/profile/settings',  label: { zh: '设置', en: 'Settings' },        icon: 'settings' },
+    ];
+    const sideItem = (item, isTab) => `
+      <button class="side-item ${isTab && activeTab === item.key ? 'active' : ''}" data-nav="${item.hash}">
+        <span class="side-icon">${icon(item.icon)}</span>${t(item.label)}
+      </button>`;
+
+    el.innerHTML = `
+      <div class="sidebar-brand">
+        <div class="icon-tile" style="background:var(--primary-base);width:36px;height:36px;border-radius:12px">${icon('map-pin')}</div>
+        <span class="brand-name">StudySpot</span>
+      </div>
+      <nav class="sidebar-nav">
+        ${tabs.map(tab => sideItem(tab, true)).join('')}
+        <div class="sidebar-section-label">${t({ zh: '快捷', en: 'Quick links' })}</div>
+        ${quick.map(item => sideItem(item, false)).join('')}
+      </nav>
+      <div class="sidebar-footer">
+        <button class="btn btn-primary btn-block" data-nav="#/activities/create">${icon('plus')} ${t({ zh: '创建活动', en: 'Create event' })}</button>
+        <button class="lang-pill sidebar-lang" data-action="toggle-lang">${icon('globe')} ${this.lang === 'zh' ? 'EN' : '中文'}</button>
+      </div>`;
   },
 
   /* ---- event delegation ----------------------------------------------- */

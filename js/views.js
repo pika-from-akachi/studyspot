@@ -133,7 +133,7 @@ const Views = {
     <div class="page page-pad">
       <section class="section">
         <h2 class="section-title mb-3">${t({ zh: '你现在需要什么样的空间？', en: 'What kind of space do you need?' })}</h2>
-        <div class="grid-2">
+        <div class="grid-2 needs-grid">
           ${needs.map(n => this.needCard(n)).join('')}
         </div>
       </section>
@@ -143,7 +143,7 @@ const Views = {
           <h2 class="section-title">${t({ zh: '附近空间', en: 'Nearby spaces' })}</h2>
           <button class="btn-text" data-nav="#/spaces">${t({ zh: '查看全部', en: 'See all' })} ${icon('chevron-right')}</button>
         </div>
-        <div class="stack stack-gap">
+        <div class="card-grid cols-3">
           ${nearby.map(s => this.spaceCard(s)).join('')}
         </div>
       </section>
@@ -174,7 +174,7 @@ const Views = {
       </section>
       <section data-search-list="space-list">
         ${list.length
-          ? `<div class="stack stack-gap">${list.map(s => this.spaceCard(s)).join('')}</div>`
+          ? `<div class="card-grid">${list.map(s => this.spaceCard(s)).join('')}</div>`
           : this.emptyState('map-pin', t({ zh: '没有找到匹配的空间', en: 'No spaces match' }), t({ zh: '试试其他需求类型', en: 'Try another need type' }))}
       </section>
     </div>`;
@@ -323,7 +323,7 @@ const Views = {
       </section>
       <section>
         ${list.length
-          ? `<div class="stack stack-gap">${list.map(a => this.activityCard(a)).join('')}</div>`
+          ? `<div class="card-grid">${list.map(a => this.activityCard(a)).join('')}</div>`
           : this.emptyState('calendar', t({ zh: '暂无此类活动', en: 'No events yet' }), t({ zh: '稍后再来看看吧', en: 'Check back later' }))}
       </section>
     </div>`;
@@ -347,7 +347,7 @@ const Views = {
       <section class="mb-3">
         <h1 class="page-title">${t(act.title)}</h1>
         <div class="row gap-sm mt-2">
-          <span class="tag tag-neutral">${icon('users')} ${t({ zh: '组织者', en: 'Organizer' })}: ${act.organizer}</span>
+          <span class="tag tag-neutral">${icon('users')} ${t({ zh: '组织者', en: 'Organizer' })}: ${t(act.organizer)}</span>
         </div>
       </section>
 
@@ -398,7 +398,7 @@ const Views = {
         <div class="stack stack-gap mt-2 body-small text-secondary">
           <div class="row gap-sm">${icon('calendar')} ${t(act.date)} · ${act.time}</div>
           <div class="row gap-sm">${icon('map-pin')} ${t(act.location)}</div>
-          <div class="row gap-sm">${icon('shield')} ${act.organizer}</div>
+          <div class="row gap-sm">${icon('shield')} ${t(act.organizer)}</div>
         </div>
       </section>
 
@@ -525,7 +525,7 @@ const Views = {
         <button class="btn btn-primary btn-block" data-nav="#/spaces" style="max-width:280px;margin:0 auto">${icon('compass')} ${t({ zh: '去发现空间', en: 'Discover spaces' })}</button>
       </div>`;
     }
-    return `<div class="page page-pad"><div class="stack stack-gap">${favs.map(s => this.spaceCard(s)).join('')}</div></div>`;
+    return `<div class="page page-pad"><div class="card-grid">${favs.map(s => this.spaceCard(s)).join('')}</div></div>`;
   },
 
   /* ---------- my activities ---------------------------------------------- */
@@ -540,7 +540,7 @@ const Views = {
         <button class="btn btn-primary btn-block" data-nav="#/activities" style="max-width:280px;margin:0 auto">${icon('calendar')} ${t({ zh: '浏览活动', en: 'Browse events' })}</button>
       </div>`;
     }
-    return `<div class="page page-pad"><div class="stack stack-gap">${acts.map(a => this.activityCard(a)).join('')}</div></div>`;
+    return `<div class="page page-pad"><div class="card-grid">${acts.map(a => this.activityCard(a)).join('')}</div></div>`;
   },
 
   /* ---------- support ----------------------------------------------------- */
@@ -556,7 +556,7 @@ const Views = {
       ${this.supportCard(crisis)}
 
       <h2 class="section-title mb-3 mt-4">${t({ zh: '学校认证服务', en: 'Campus-certified services' })}</h2>
-      <div class="stack stack-gap">
+      <div class="card-grid support-grid">
         ${others.map(s => this.supportCard(s)).join('')}
       </div>
 
