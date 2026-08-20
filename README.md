@@ -36,7 +36,8 @@ StudySpot 帮助大学生在需要专注学习、放松恢复、社交连接或�
 # 方式一：直接双击 index.html
 # 方式二：本地静态服务器
 python -m http.server 8000
-# 浏览器访问 http://localhost:8000
+# 浏览器访问 http://localhost:8000      应用
+# 浏览器访问 http://localhost:8000/marketing/  宣传官网
 ```
 
 ## 📱💻 双端布局 Dual Layout
@@ -54,6 +55,22 @@ python -m http.server 8000
 
 桌面端在 `≥1024px` 自动启用侧边栏与多列布局，无需任何操作；移动端保持原有底部导航与居中列。
 
+## 🌐 宣传官网 Marketing Site
+
+独立的品牌宣传官网（`/marketing/`），面向潜在用户介绍产品理念与核心能力，**简约高级（Premium Minimal）** 配色：象牙白 `#FBF9F6` 底、炭墨 `#1B1A17` 文字、焦糖橙 `#E65A0F` 点缀，衬线大标题 + 无衬线正文，细发丝边框与胶囊按钮，无多余阴影。
+
+- 首屏 Hero：产品标语 + **纯 HTML/CSS 手机 Mockup**（内嵌真实 mini-UI）
+- 数据指标、四大需求场景、功能特性、**桌面端浏览器 Mockup**（展示双端布局）
+- 用户评价、Cta 区块、FAQ 手风琴、页脚
+- 中英文一键切换（`localStorage` 记忆）、响应式（≤1023px / ≤560px）、滚动渐入动画
+- 断点与动效遵循 `prefers-reduced-motion`
+
+| 目录 | 说明 |
+|---|---|
+| `marketing/index.html` | 官网外壳 |
+| `marketing/css/style.css` | 简约高级设计系统 |
+| `marketing/js/site.js` | 双语内容渲染 / 路由锚点 / 滚动渐入 / 菜单 |
+
 ## 📁 项目结构 Structure
 
 ```
@@ -69,6 +86,10 @@ studyspot/
 │   ├── data.js            # 双语 mock 数据（空间/活动/支持资源）
 │   ├── views.js           # 页面渲染函数（纯 HTML 字符串）
 │   └── app.js             # 路由 / i18n / 状态 / 事件
+├── marketing/             # 宣传官网（简约高级配色）
+│   ├── index.html
+│   ├── css/style.css
+│   └── js/site.js
 └── paraflow/              # 原始设计文档（请勿修改）
 ```
 
