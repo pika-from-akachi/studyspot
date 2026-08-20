@@ -155,6 +155,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   display: flex; align-items: center; justify-content: center;
 }
 .brand-mark svg { width: 18px; height: 18px; }
+.crest { display: inline-block; vertical-align: middle; flex-shrink: 0; }
+.brand-mark--crest { background: #fff; border: 1px solid var(--line); }
+.brand-mark--crest svg { width: auto; height: auto; }
 
 .nav-links { display: flex; align-items: center; gap: 30px; }
 .nav-links a { font-size: 14px; font-weight: 500; color: var(--ink-2); transition: color .15s ease; }
@@ -269,11 +272,11 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: var(--ink);
   padding: 12px;
   box-shadow: 0 60px 120px -48px rgba(27, 26, 23, 0.55);
-  animation: phone-float 7s ease-in-out infinite;
+  animation: phone-float 5.5s ease-in-out infinite;
 }
 @keyframes phone-float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-14px); }
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-30px) rotate(-2.4deg); }
 }
 .phone-screen {
   border-radius: 36px;
@@ -305,7 +308,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .ph-app { flex: 1; display: flex; flex-direction: column; padding: 4px 16px 12px; overflow: hidden; }
 .ph-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-.ph-brand { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; }
+.ph-brand { display: inline-flex; align-items: center; gap: 6px; font-weight: 800; font-size: 15px; letter-spacing: -0.01em; }
+.ph-brand .crest { width: 15px; height: 17px; }
 .ph-pill {
   font-size: 11px; font-weight: 700; color: var(--accent);
   background: var(--accent-soft); padding: 4px 10px; border-radius: 999px;
@@ -353,11 +357,11 @@ ul { margin: 0; padding: 0; list-style: none; }
   padding: 14px 18px;
   display: flex; align-items: center; gap: 12px;
   box-shadow: 0 30px 60px -30px rgba(27,26,23,.28);
-  animation: float-card 5.5s ease-in-out 1s infinite;
+  animation: float-card 4.8s ease-in-out 0.6s infinite;
 }
 @keyframes float-card {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-10px); }
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-16px) rotate(1.2deg); }
 }
 .float-card .fc-ic { width: 38px; height: 38px; border-radius: 12px; background: #E8F7D1; color: #4E8A10; display: flex; align-items: center; justify-content: center; }
 .float-card .fc-ic svg { width: 19px; height: 19px; }
@@ -384,27 +388,31 @@ ul { margin: 0; padding: 0; list-style: none; }
   overflow: hidden;
   background: var(--bg);
   padding: 14px 0;
+  line-height: 0;               /* no baseline gap for the inline-flex track */
 }
 .ticker-track {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  width: max-content;
-  animation: ticker 32s linear infinite;
+  vertical-align: top;
+  animation: ticker var(--ticker-dur, 30s) linear infinite;
+  will-change: transform;
 }
-.ticker-track span {
+.ticker-set { display: flex; align-items: center; flex-shrink: 0; }
+.ticker-set span {
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--ink-2);
   white-space: nowrap;
 }
-.ticker-track em {
+.ticker-set em {
   font-style: normal;
   color: var(--accent);
   margin: 0 24px;
   font-size: 12px;
 }
 @keyframes ticker {
+  from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
 
@@ -503,6 +511,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .br-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 14px; margin-bottom: 14px; }
 .br-brand .br-logo { width: 22px; height: 22px; border-radius: 7px; background: var(--accent); }
+.br-logo--crest { background: #fff !important; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; }
+.br-logo--crest svg { width: 15px; height: 17px; }
 .br-nav { font-size: 12px; font-weight: 600; color: var(--ink-3); padding: 8px 10px; border-radius: 8px; }
 .br-nav.on { background: #FBEBE0; color: var(--accent); }
 .br-create {
@@ -584,6 +594,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .site-footer { border-top: 1px solid var(--line); background: var(--bg); padding: 64px 0 40px; }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
 .footer-brand p { font-size: 14px; color: var(--ink-2); margin-top: 14px; max-width: 300px; }
+.footer-uni { margin-top: 18px; display: flex; flex-direction: column; gap: 3px; }
+.footer-uni .fu-row { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--ink-2); }
+.footer-uni .fu-row .crest { width: 16px; height: 19px; }
+.footer-uni .fu-motto { font-family: var(--serif); font-style: italic; font-size: 12.5px; color: var(--ink-3); padding-left: 24px; }
 .footer-col h5 { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 16px; }
 .footer-col a { display: block; font-size: 14px; color: var(--ink-2); padding: 6px 0; transition: color .15s ease; }
 .footer-col a:hover { color: var(--accent); }

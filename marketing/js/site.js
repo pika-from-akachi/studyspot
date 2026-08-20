@@ -29,20 +29,54 @@ const ICONS = {
 const icon = (n, cls) =>
   `<svg class="${cls || ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n] || ''}</svg>`;
 
+/* ---------- Cambridge coat of arms ---------------------------------------- */
+const CREST_LION =
+  '<rect x="4" y="8" width="11" height="6" rx="2.5"/>' +
+  '<path d="M4 10 C1 9 -1 6 1 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
+  '<rect x="5" y="14" width="2.6" height="7" rx="1.3"/>' +
+  '<rect x="8" y="14" width="2.6" height="6" rx="1.3"/>' +
+  '<rect x="12" y="14" width="2.6" height="7" rx="1.3"/>' +
+  '<rect x="9.5" y="14" width="2.6" height="6" rx="1.3"/>' +
+  '<path d="M13 12 L15 7 C15.6 4.5 14.2 2.5 12 2 C13.5 3 15 5 14.4 8 L13.5 12 Z"/>' +
+  '<circle cx="13.5" cy="3" r="3.4"/>' +
+  '<path d="M11.4 0.5 l-1.2 -1.6 .6 2.2 M15.6 0.5 l1.2 -1.6 -.6 2.2" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>';
+
+const crest = (size) => {
+  const s = size || 28;
+  const h = Math.round(s * 1.16);
+  return `<svg class="crest" xmlns="http://www.w3.org/2000/svg" width="${s}" height="${h}" viewBox="0 0 100 116" role="img" aria-label="University of Cambridge coat of arms">
+    <path d="M50 3 L91 10 L91 61 C91 89 72 103 50 111 C28 103 9 89 9 61 L9 10 Z" fill="#C8102E"/>
+    <path d="M50 9 L84 16 L84 60 C84 85 68 97 50 104 C32 97 16 85 16 60 L16 16 Z" fill="#16308C"/>
+    <g fill="#F0B429">
+      <g transform="translate(19 33)">${CREST_LION}</g>
+      <g transform="translate(39 33)">${CREST_LION}</g>
+      <g transform="translate(59 33)">${CREST_LION}</g>
+    </g>
+    <g fill="#F0B429">
+      <g transform="translate(50 10)"><rect x="-1.5" y="-4" width="3" height="8" rx="1"/><rect x="-4" y="-1.5" width="8" height="3" rx="1"/><rect x="-2.2" y="-2.2" width="4.4" height="4.4" rx="1.2"/></g>
+      <rect x="11" y="54" width="4" height="4" rx="1"/>
+      <rect x="85" y="54" width="4" height="4" rx="1"/>
+      <rect x="28" y="97" width="4" height="4" rx="1"/>
+      <rect x="68" y="97" width="4" height="4" rx="1"/>
+    </g>
+  </svg>`;
+};
+
 /* ---------- bilingual content ------------------------------------------- */
 const I18N = {
   zh: {
     langName: '中文',
     navFeatures: '功能', navNeeds: '校园体验', navTestimonials: '同学说', navFaq: '常见问题',
     cta: '开始探索',
-    heroEyebrow: '校园空间 · 学生福祉平台',
+    heroEyebrow: '剑桥大学 · 校园空间 · 学生福祉平台',
+    uniName: '剑桥大学', uniMotto: 'Hinc lucem et pocula sacra',
     heroTitle1: '找到此刻',
     heroTitle2: '最适合你的校园空间',
     heroSub: 'StudySpot 按你的状态——专注、放松、社交、运动——实时推荐最合适的校园空间，并连接学校认证的活动与支持资源。',
     heroCta1: '开始探索',
     heroCta2: '了解更多',
     heroTrust1: '为高校学生打造',
-    heroTrust2: '学校认证内容',
+    heroTrust2: '剑桥大学认证内容',
     heroTrust3: '打开即用 · 无需下载',
     floatT: '扫码签到成功',
     floatS: '实时状态已更新',
@@ -75,13 +109,13 @@ const I18N = {
     faqTitle: '常见问题',
     qq1: '需要注册或登录吗？', aa1: '不需要。打开即用，收藏与签到记录保存在你的浏览器本地。',
     qq2: '空间状态准确吗？', aa2: '状态来自同学扫码签到反馈与学校官方信息，并持续实时更新。',
-    qq3: '覆盖哪些校区？', aa3: '内容经学校官方认证，校区支持正在逐步开放。',
+    qq3: '覆盖哪些校区？', aa3: '由剑桥大学学生团队打造，内容经学校官方认证，更多校区正在逐步开放。',
     qq4: '我的数据安全吗？', aa4: '我们只保存必要的本地偏好，不采集任何个人身份信息。',
-    qq5: '如何反馈问题？', aa5: '通过应用内「帮助与反馈」，或邮件 support@campus.edu。',
+    qq5: '如何反馈问题？', aa5: '通过应用内「帮助与反馈」，或邮件 support@cam.ac.uk。',
     footTag: '校园空间与学生福祉导航平台',
     footProduct: '产品', footProduct1: '功能', footProduct2: '空间', footProduct3: '活动',
     footSupport: '支持', footSupport1: '帮助中心', footSupport2: '隐私政策', footSupport3: '联系我们',
-    copy: '© 2026 StudySpot · 为高校学生打造',
+    copy: '© 2026 StudySpot · 剑桥大学学生团队打造',
     mockNeedTitle: '你现在需要什么样的空间？',
     mockNearby: '附近空间',
     mockSpace1: '图书馆 3F 自习区', mockSpace1tag: '专注', mockSpace1c: '较空',
@@ -99,14 +133,15 @@ const I18N = {
     langName: 'English',
     navFeatures: 'Features', navNeeds: 'Campus', navTestimonials: 'Students', navFaq: 'FAQ',
     cta: 'Get started',
-    heroEyebrow: 'Campus spaces · Student wellbeing',
+    heroEyebrow: 'University of Cambridge · Campus spaces · Student wellbeing',
+    uniName: 'University of Cambridge', uniMotto: 'Hinc lucem et pocula sacra',
     heroTitle1: 'Find the space',
     heroTitle2: 'that fits you right now',
     heroSub: 'StudySpot matches you to the right campus space by how you feel — focus, relax, connect or move — and connects you to campus-certified events and support.',
     heroCta1: 'Explore the app',
     heroCta2: 'Learn more',
     heroTrust1: 'Built for students',
-    heroTrust2: 'Campus-certified content',
+    heroTrust2: 'University of Cambridge certified',
     heroTrust3: 'No install needed',
     floatT: 'Checked in',
     floatS: 'Live status updated',
@@ -139,13 +174,13 @@ const I18N = {
     faqTitle: 'Frequently asked',
     qq1: 'Do I need an account?', aa1: 'No. It works right away — favorites and check-ins are stored locally in your browser.',
     qq2: 'Are space statuses accurate?', aa2: 'Statuses come from student check-in feedback plus official campus data, updated continuously.',
-    qq3: 'Which campuses are covered?', aa3: 'Content is campus-certified and more campuses are rolling out over time.',
+    qq3: 'Which campuses are covered?', aa3: 'Built by Cambridge students and campus-certified — more campuses are rolling out.',
     qq4: 'Is my data safe?', aa4: 'We only store necessary local preferences and never collect personal identity information.',
-    qq5: 'How do I report an issue?', aa5: 'Use “Help & feedback” inside the app, or email support@campus.edu.',
+    qq5: 'How do I report an issue?', aa5: 'Use “Help & feedback” inside the app, or email support@cam.ac.uk.',
     footTag: 'Campus space & student wellbeing navigation',
     footProduct: 'Product', footProduct1: 'Features', footProduct2: 'Spaces', footProduct3: 'Events',
     footSupport: 'Support', footSupport1: 'Help center', footSupport2: 'Privacy', footSupport3: 'Contact',
-    copy: '© 2026 StudySpot · Made for students',
+    copy: '© 2026 StudySpot · Made by Cambridge students',
     mockNeedTitle: 'What kind of space do you need?',
     mockNearby: 'Nearby spaces',
     mockSpace1: 'Library 3F Study', mockSpace1tag: 'Focus', mockSpace1c: 'Open',
@@ -203,7 +238,7 @@ const App = {
         <div class="phone-screen">
           <div class="ph-status"><span>9:41</span><span class="ph-live"><i></i>LIVE</span></div>
           <div class="ph-app">
-            <div class="ph-header"><span class="ph-brand">StudySpot</span><span class="ph-pill">${this.lang === 'zh' ? 'EN' : '中文'}</span></div>
+            <div class="ph-header"><span class="ph-brand">${crest(15)} StudySpot</span><span class="ph-pill">${this.lang === 'zh' ? 'EN' : '中文'}</span></div>
             <div class="ph-need-title">${t('mockNeedTitle')}</div>
             <div class="ph-needs">
               ${NEED_TILES.map(n => `
@@ -227,10 +262,10 @@ const App = {
 
     const browserMockup = `
       <div class="browser reveal">
-        <div class="browser-bar"><span class="bdot bdot-r"></span><span class="bdot bdot-y"></span><span class="bdot bdot-g"></span><span class="burl">studyspot.campus.edu</span></div>
+        <div class="browser-bar"><span class="bdot bdot-r"></span><span class="bdot bdot-y"></span><span class="bdot bdot-g"></span><span class="burl">studyspot.cam.ac.uk</span></div>
         <div class="browser-body">
           <div class="br-side">
-            <div class="br-brand"><span class="br-logo"></span>StudySpot</div>
+            <div class="br-brand"><span class="br-logo br-logo--crest">${crest(14)}</span>StudySpot</div>
             <div class="br-nav on">${icon('home')} ${t('deskNav1')}</div>
             <div class="br-nav">${icon('compass') || icon('activity')} ${t('deskNav2')}</div>
             <div class="br-nav">${icon('calendar')} ${t('deskNav3')}</div>
@@ -272,7 +307,7 @@ const App = {
       <header class="site-header" id="site-header">
         <div class="header-inner">
           <a class="brand" href="#top" data-scroll>
-            <span class="brand-mark">${icon('map-pin')}</span>StudySpot
+            <span class="brand-mark brand-mark--crest">${crest(20)}</span>StudySpot
           </a>
           <nav class="nav-links" aria-label="Primary">
             <a href="#features" data-scroll>${t('navFeatures')}</a>
@@ -291,7 +326,7 @@ const App = {
       <div class="mobile-menu" id="mobile-menu">
         <div class="mobile-menu-panel">
           <div class="mobile-menu-head">
-            <span class="brand"><span class="brand-mark">${icon('map-pin')}</span>StudySpot</span>
+            <span class="brand"><span class="brand-mark brand-mark--crest">${crest(20)}</span>StudySpot</span>
             <button class="menu-btn" data-action="menu" aria-label="Close">${icon('close')}</button>
           </div>
           <a class="mm-link" href="#features" data-scroll>${t('navFeatures')}</a>
@@ -335,8 +370,7 @@ const App = {
 
         <div class="ticker" aria-hidden="true">
           <div class="ticker-track">
-            ${['n1', 'n2', 'n3', 'n4'].map(k => `<span>${I18N.zh[k]} ${I18N.en[k]}</span><em>✦</em>`).join('')}
-            ${['n1', 'n2', 'n3', 'n4'].map(k => `<span>${I18N.zh[k]} ${I18N.en[k]}</span><em>✦</em>`).join('')}
+            <div class="ticker-set">${['n1', 'n2', 'n3', 'n4'].map(k => `<span>${I18N.zh[k]} ${I18N.en[k]}</span><em>✦</em>`).join('')}</div>
           </div>
         </div>
 
@@ -457,8 +491,12 @@ const App = {
         <div class="container">
           <div class="footer-grid">
             <div class="footer-brand">
-              <a class="brand" href="#top" data-scroll><span class="brand-mark">${icon('map-pin')}</span>StudySpot</a>
+              <a class="brand" href="#top" data-scroll><span class="brand-mark brand-mark--crest">${crest(20)}</span>StudySpot</a>
               <p>${t('footTag')}</p>
+              <div class="footer-uni">
+                <span class="fu-row">${crest(16)} ${t('uniName')}</span>
+                <span class="fu-motto">${t('uniMotto')}</span>
+              </div>
             </div>
             <div class="footer-col">
               <h5>${t('footProduct')}</h5>
@@ -524,10 +562,28 @@ const App = {
     }
   },
 
+  // Make the marquee fill the band edge-to-edge and loop seamlessly. If the
+  // item set is narrower than the viewport, the ticker leaves a gap mid-page
+  // and reads as "popping in" instead of scrolling in from the right.
+  expandTicker() {
+    const set = document.querySelector('.ticker-set');
+    if (!set) return;
+    const track = set.parentElement;
+    const w = set.getBoundingClientRect().width || 1;
+    const perHalf = Math.max(2, Math.ceil(window.innerWidth / w) + 1);
+    let html = '';
+    for (let i = 0; i < perHalf * 2; i++) html += set.outerHTML;
+    track.innerHTML = html;
+    // Keep a consistent scroll speed across screen sizes.
+    const total = track.getBoundingClientRect().width;
+    track.style.setProperty('--ticker-dur', Math.max(12, Math.round(total / 140)) + 's');
+  },
+
   // Re-run after every render (also fixes reveals staying hidden after a
   // language toggle re-renders the DOM).
   afterRender() {
     this.updateScrollUI();
+    this.expandTicker();
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Reveal on scroll — elements already in the viewport become visible
