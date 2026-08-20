@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Rounded background -->
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="#FF7A3D"/>
+  <!-- Location pin -->
+  <path d="M256 420c0 0 132-110 132-196a132 132 0 1 0-264 0c0 86 132 196 132 196Z" fill="#FFFFFF"/>
+  <circle cx="256" cy="224" r="52" fill="#FF7A3D"/>
+  <!-- Four need-type dots (focus / relax / connect / move) -->
+  <circle cx="256" cy="224" r="20" fill="#FF7A3D"/>
+  <circle cx="180" cy="148" r="26" fill="#FFB800"/>
+  <circle cx="332" cy="148" r="26" fill="#A4D65E"/>
+  <circle cx="180" cy="300" r="26" fill="#5BC0EB"/>
+  <circle cx="332" cy="300" r="26" fill="#FF6B6B"/>
+</svg>
