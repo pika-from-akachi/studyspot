@@ -146,7 +146,7 @@ const App = {
 
     const left = title
       ? `<div class="h-left">${showBack ? `<button class="icon-btn" data-nav="back" aria-label="Back">${icon('arrow-left')}</button>` : ''}<span class="page-title">${t(title)}</span></div>`
-      : `<div class="h-left"><div class="icon-tile" style="background:var(--primary-base);width:32px;height:32px;border-radius:12px">${icon('map-pin')}</div><span class="page-title" style="font-size:20px">StudySpot</span></div>`;
+      : `<div class="h-left">${crest(30)}<span class="page-title" style="font-size:20px">StudySpot</span></div>`;
 
     const right = `${route.name === 'activities'
       ? `<button class="icon-btn" data-nav="#/activities/create" aria-label="${t({ zh: '创建活动', en: 'Create event' })}">${icon('plus')}</button>`
@@ -220,8 +220,11 @@ const App = {
 
     el.innerHTML = `
       <div class="sidebar-brand">
-        <div class="icon-tile" style="background:var(--primary-base);width:36px;height:36px;border-radius:12px">${icon('map-pin')}</div>
-        <span class="brand-name">StudySpot</span>
+        ${crest(40)}
+        <div>
+          <div class="brand-name">StudySpot</div>
+          <div class="brand-sub">${this.lang === 'zh' ? '剑桥大学' : 'University of Cambridge'}</div>
+        </div>
       </div>
       <nav class="sidebar-nav">
         ${tabs.map(tab => sideItem(tab, true)).join('')}

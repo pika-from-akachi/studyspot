@@ -488,11 +488,19 @@ const Views = {
         <div class="avatar">${App.lang === 'zh' ? '李' : 'L'}</div>
         <div>
           <h1 class="page-title">${t({ zh: '李晓雨', en: 'Li Xiaoyu' })}</h1>
-          <p class="body-small text-tertiary mt-1">${t({ zh: '大三 · 计算机科学', en: 'Junior · Computer Science' })}</p>
+          <p class="body-small text-tertiary mt-1">${t({ zh: '剑桥大学 · 计算机科学 · 大三', en: 'University of Cambridge · Computer Science · Junior' })}</p>
         </div>
       </div>
 
       <div class="page-pad">
+        <div class="uni-card mb-4">
+          ${crest(46)}
+          <div>
+            <div class="uni-card-name">${t({ zh: '剑桥大学', en: 'University of Cambridge' })}</div>
+            <div class="uni-card-motto">Hinc lucem et pocula sacra</div>
+          </div>
+        </div>
+
         <div class="stat-grid mb-4">
           <div class="stat-card"><div class="stat-num">${favCount}</div><div class="stat-label">${t({ zh: '收藏空间', en: 'Spaces' })}</div></div>
           <div class="stat-card"><div class="stat-num">${actCount}</div><div class="stat-label">${t({ zh: '参与活动', en: 'Events' })}</div></div>
@@ -620,9 +628,10 @@ const Views = {
       <div class="settings-group">
         <div class="settings-group-title">${t({ zh: '关于', en: 'About' })}</div>
         <div class="settings-list">
+          <div class="list-item"><div class="li-left">${crest(26)} <span>${t({ zh: '学校', en: 'University' })}</span></div><div class="li-right"><span class="li-value">${t({ zh: '剑桥大学', en: 'University of Cambridge' })}</span></div></div>
           <div class="list-item"><div class="li-left">${icon('info')} <span>${t({ zh: '版本', en: 'Version' })}</span></div><div class="li-right"><span class="li-value">0.1.0</span></div></div>
-          <div class="list-item" data-click="contact" data-info="privacy@campus.edu"><div class="li-left">${icon('shield')} <span>${t({ zh: '隐私政策', en: 'Privacy policy' })}</span></div>${icon('chevron-right')}</div>
-          <div class="list-item" data-click="contact" data-info="support@campus.edu"><div class="li-left">${icon('help-circle')} <span>${t({ zh: '帮助与反馈', en: 'Help & feedback' })}</span></div>${icon('chevron-right')}</div>
+          <div class="list-item" data-click="contact" data-info="privacy@cam.ac.uk"><div class="li-left">${icon('shield')} <span>${t({ zh: '隐私政策', en: 'Privacy policy' })}</span></div>${icon('chevron-right')}</div>
+          <div class="list-item" data-click="contact" data-info="support@cam.ac.uk"><div class="li-left">${icon('help-circle')} <span>${t({ zh: '帮助与反馈', en: 'Help & feedback' })}</span></div>${icon('chevron-right')}</div>
         </div>
       </div>
     </div>`;

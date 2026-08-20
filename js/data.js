@@ -3,6 +3,10 @@
    Bilingual (zh / en) sample data for the MVP prototype.
    ========================================================================== */
 
+/* University identity (剑桥大学) */
+const UNIVERSITY = { zh: '剑桥大学', en: 'University of Cambridge' };
+const UNIVERSITY_MOTTO = 'Hinc lucem et pocula sacra';
+
 /* The four need types (专注 / 恢复 / 连接 / 运动) */
 const NEED_TYPES = {
   focus:   { name: { zh: '专注',   en: 'Focus' },   desc: { zh: '安静学习空间', en: 'Quiet study spaces' }, color: '#FF7A3D', icon: 'target' },
@@ -184,7 +188,7 @@ const SUPPORT = [
   {
     id: 'career', name: { zh: '职业发展中心', en: 'Career Development Center' },
     type: 'career', emergency: false,
-    hours: '周一至周五 09:30 – 17:30', contact: 'career@campus.edu',
+    hours: '周一至周五 09:30 – 17:30', contact: 'careers@cam.ac.uk',
     contactType: 'mail',
     color: '#5BC0EB', icon: 'briefcase',
     desc: { zh: '简历与面试辅导、职业规划咨询、实习与招聘信息发布。', en: 'Resume and interview coaching, career planning and internship/job postings.' },

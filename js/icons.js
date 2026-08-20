@@ -72,3 +72,41 @@ function icon(name, className) {
   const cls = className ? ' class="' + className + '"' : '';
   return '<svg' + cls + ' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + body + '</svg>';
 }
+
+/* ==========================================================================
+   University of Cambridge coat of arms — simplified flat rendition.
+   Azure field · three lions passant guardant Or · Gules bordure charged
+   with a cross patonce and four fleurs-de-lis.
+   ========================================================================== */
+const CREST_LION =
+  '<rect x="4" y="8" width="11" height="6" rx="2.5"/>' +
+  '<path d="M4 10 C1 9 -1 6 1 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
+  '<rect x="5" y="14" width="2.6" height="7" rx="1.3"/>' +
+  '<rect x="8" y="14" width="2.6" height="6" rx="1.3"/>' +
+  '<rect x="12" y="14" width="2.6" height="7" rx="1.3"/>' +
+  '<rect x="9.5" y="14" width="2.6" height="6" rx="1.3"/>' +
+  '<path d="M13 12 L15 7 C15.6 4.5 14.2 2.5 12 2 C13.5 3 15 5 14.4 8 L13.5 12 Z"/>' +
+  '<circle cx="13.5" cy="3" r="3.4"/>' +
+  '<path d="M11.4 0.5 l-1.2 -1.6 .6 2.2 M15.6 0.5 l1.2 -1.6 -.6 2.2" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>';
+
+/** Return the University of Cambridge crest as an inline <svg>. */
+function crest(size) {
+  const s = size || 32;
+  const h = Math.round(s * 1.16);
+  return `<svg class="cambridge-crest" xmlns="http://www.w3.org/2000/svg" width="${s}" height="${h}" viewBox="0 0 100 116" role="img" aria-label="University of Cambridge coat of arms">
+  <path d="M50 3 L91 10 L91 61 C91 89 72 103 50 111 C28 103 9 89 9 61 L9 10 Z" fill="#C8102E"/>
+  <path d="M50 9 L84 16 L84 60 C84 85 68 97 50 104 C32 97 16 85 16 60 L16 16 Z" fill="#16308C"/>
+  <g fill="#F0B429">
+    <g transform="translate(19 33)">${CREST_LION}</g>
+    <g transform="translate(39 33)">${CREST_LION}</g>
+    <g transform="translate(59 33)">${CREST_LION}</g>
+  </g>
+  <g fill="#F0B429">
+    <g transform="translate(50 10)"><rect x="-1.5" y="-4" width="3" height="8" rx="1"/><rect x="-4" y="-1.5" width="8" height="3" rx="1"/><rect x="-2.2" y="-2.2" width="4.4" height="4.4" rx="1.2"/></g>
+    <rect x="11" y="54" width="4" height="4" rx="1"/>
+    <rect x="85" y="54" width="4" height="4" rx="1"/>
+    <rect x="28" y="97" width="4" height="4" rx="1"/>
+    <rect x="68" y="97" width="4" height="4" rx="1"/>
+  </g>
+</svg>`;
+}

@@ -188,8 +188,8 @@ const App = {
 
   init() {
     document.documentElement.lang = this.lang === 'zh' ? 'zh-CN' : 'en';
+    this.bindEvents();
     this.render();
-    this.bind();
   },
 
   /* ---- render ----------------------------------------------------------- */
@@ -201,7 +201,7 @@ const App = {
     const phoneMockup = `
       <div class="phone reveal">
         <div class="phone-screen">
-          <div class="ph-status"><span>9:41</span><span>${icon('globe')}</span></div>
+          <div class="ph-status"><span>9:41</span><span class="ph-live"><i></i>LIVE</span></div>
           <div class="ph-app">
             <div class="ph-header"><span class="ph-brand">StudySpot</span><span class="ph-pill">${this.lang === 'zh' ? 'EN' : '中文'}</span></div>
             <div class="ph-need-title">${t('mockNeedTitle')}</div>
@@ -304,6 +304,8 @@ const App = {
         </div>
       </div>
 
+      <div class="scroll-progress" id="scroll-progress"></div>
+
       <main id="top">
         <section class="hero">
           <div class="container hero-grid">
@@ -321,7 +323,7 @@ const App = {
                 <span>${icon('sparkle')} ${t('heroTrust3')}</span>
               </div>
             </div>
-            <div class="hero-visual">
+            <div class="hero-visual tilt">
               ${phoneMockup}
               <div class="float-card reveal">
                 <div class="fc-ic">${icon('check')}</div>
@@ -331,12 +333,19 @@ const App = {
           </div>
         </section>
 
+        <div class="ticker" aria-hidden="true">
+          <div class="ticker-track">
+            ${['n1', 'n2', 'n3', 'n4'].map(k => `<span>${I18N.zh[k]} ${I18N.en[k]}</span><em>✦</em>`).join('')}
+            ${['n1', 'n2', 'n3', 'n4'].map(k => `<span>${I18N.zh[k]} ${I18N.en[k]}</span><em>✦</em>`).join('')}
+          </div>
+        </div>
+
         <section class="stats">
           <div class="container stats-grid">
-            <div class="stat reveal"><div class="stat-num"><em>${t('stat1v')}</em></div><div class="stat-label">${t('stat1l')}</div></div>
-            <div class="stat reveal"><div class="stat-num"><em>${t('stat2v')}</em></div><div class="stat-label">${t('stat2l')}</div></div>
-            <div class="stat reveal"><div class="stat-num"><em>${t('stat3v')}</em></div><div class="stat-label">${t('stat3l')}</div></div>
-            <div class="stat reveal"><div class="stat-num"><em>${t('stat4v')}</em></div><div class="stat-label">${t('stat4l')}</div></div>
+            <div class="stat reveal" style="transition-delay:0ms"><div class="stat-num"><em data-count="10" data-suffix="+">${t('stat1v')}</em></div><div class="stat-label">${t('stat1l')}</div></div>
+            <div class="stat reveal" style="transition-delay:70ms"><div class="stat-num"><em data-count="7" data-suffix="+">${t('stat2v')}</em></div><div class="stat-label">${t('stat2l')}</div></div>
+            <div class="stat reveal" style="transition-delay:140ms"><div class="stat-num"><em>${t('stat3v')}</em></div><div class="stat-label">${t('stat3l')}</div></div>
+            <div class="stat reveal" style="transition-delay:210ms"><div class="stat-num"><em>${t('stat4v')}</em></div><div class="stat-label">${t('stat4l')}</div></div>
           </div>
         </section>
 
@@ -348,7 +357,7 @@ const App = {
             </div>
             <div class="features-grid">
               ${features.map((f, i) => `
-                <article class="feature reveal">
+                <article class="feature reveal" style="transition-delay:${i * 80}ms">
                   <div class="feature-ic">${icon(f.ic)}</div>
                   <h3>${f.t}</h3>
                   <p>${f.d}</p>
@@ -366,7 +375,7 @@ const App = {
             </div>
             <div class="needs-grid">
               ${NEED_TILES.map((n, i) => `
-                <div class="need reveal">
+                <div class="need reveal" style="transition-delay:${i * 80}ms">
                   <div class="need-ic" style="background:${n.color}">${icon(n.icon)}</div>
                   <h3>${t(n.key)}</h3>
                   <p>${t(n.key + 'd')}</p>
@@ -392,7 +401,7 @@ const App = {
                 </div>
               </div>
             </div>
-            ${browserMockup}
+            <div class="show-visual tilt">${browserMockup}</div>
           </div>
         </section>
 
@@ -404,7 +413,7 @@ const App = {
             </div>
             <div class="testi-grid">
               ${testimonials.map((x, i) => `
-                <figure class="testi reveal">
+                <figure class="testi reveal" style="transition-delay:${i * 90}ms">
                   <blockquote class="quote">“${x.q}”</blockquote>
                   <figcaption class="who">
                     <span class="ava">${x.c}</span>
@@ -470,10 +479,13 @@ const App = {
           </div>
         </div>
       </footer>`;
+
+    this.afterRender();
   },
 
   /* ---- interactions ----------------------------------------------------- */
-  bind() {
+  // One-time document listeners (survive re-renders).
+  bindEvents() {
     document.addEventListener('click', (e) => {
       const langBtn = e.target.closest('[data-action="lang"]');
       if (langBtn) { this.toggleLang(); return; }
@@ -498,11 +510,25 @@ const App = {
       }
     });
 
-    // Sticky header background on scroll
+    window.addEventListener('scroll', () => this.updateScrollUI(), { passive: true });
+  },
+
+  updateScrollUI() {
     const header = document.getElementById('site-header');
-    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 8);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    if (header) header.classList.toggle('scrolled', window.scrollY > 8);
+    const bar = document.getElementById('scroll-progress');
+    if (bar) {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? Math.min(100, (h.scrollTop / max) * 100) : 0) + '%';
+    }
+  },
+
+  // Re-run after every render (also fixes reveals staying hidden after a
+  // language toggle re-renders the DOM).
+  afterRender() {
+    this.updateScrollUI();
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Reveal on scroll — elements already in the viewport become visible
     // immediately (no IO round-trip), the rest reveal as they scroll in.
@@ -534,6 +560,43 @@ const App = {
       });
     } else {
       els.forEach((el) => el.classList.add('in'));
+    }
+
+    // Stat count-up — animate only the numeric values (10+, 7+).
+    if (!reduced && 'IntersectionObserver' in window) {
+      const counters = document.querySelectorAll('[data-count]');
+      const cio = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          cio.unobserve(el);
+          const target = parseInt(el.dataset.count, 10) || 0;
+          const suffix = el.dataset.suffix || '';
+          const start = performance.now();
+          const dur = 1100;
+          const step = (now) => {
+            const p = Math.min(1, (now - start) / dur);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.round(target * eased) + suffix;
+            if (p < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        });
+      }, { threshold: 0.4 });
+      counters.forEach((c) => cio.observe(c));
+    }
+
+    // Subtle 3D tilt on the phone / browser mockups (fine pointers only).
+    if (!reduced && window.matchMedia('(pointer: fine)').matches) {
+      document.querySelectorAll('.tilt').forEach((el) => {
+        el.addEventListener('mousemove', (e) => {
+          const r = el.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          const y = (e.clientY - r.top) / r.height - 0.5;
+          el.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg)`;
+        });
+        el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+      });
     }
   },
 };
