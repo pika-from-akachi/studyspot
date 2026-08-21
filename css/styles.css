@@ -269,16 +269,18 @@ img { max-width: 100%; display: block; }
   justify-content: center;
   gap: var(--sp-tight);
   border: 0;
-  border-radius: var(--radius-md);
-  padding: 14px 24px;
+  border-radius: var(--radius-lg);
+  padding: 12px 20px;
   font-weight: 700;
-  font-size: 16px;
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  font-size: 15px;
+  transition: background-color 0.15s ease, color 0.15s ease,
+    border-color 0.15s ease, transform 0.06s ease;
   line-height: 1.2;
   text-align: center;
 }
 .btn svg { width: 18px; height: 18px; flex-shrink: 0; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn:active { transform: translateY(1px); }
 
 .btn-primary { background: var(--primary-base); color: var(--text-on-dark); }
 .btn-primary:hover { background: var(--primary-darker); }
@@ -311,8 +313,8 @@ img { max-width: 100%; display: block; }
 .btn-text svg { width: 16px; height: 16px; }
 
 .btn-block { width: 100%; }
-.btn-sm { padding: 8px 16px; font-size: 14px; }
-.btn-lg { padding: 16px 24px; font-size: 17px; }
+.btn-sm { padding: 7px 14px; font-size: 13px; }
+.btn-lg { padding: 14px 22px; font-size: 16px; }
 
 /* Icon button */
 .icon-btn {
@@ -819,7 +821,7 @@ img { max-width: 100%; display: block; }
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(230, 89, 10, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   z-index: 40;
   transition: background-color 0.15s ease, transform 0.15s ease;
 }
