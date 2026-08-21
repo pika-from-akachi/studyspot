@@ -370,7 +370,7 @@ const App = {
 
         <div class="ticker" aria-hidden="true">
           <div class="ticker-track">
-            <div class="ticker-set">${['n1', 'n2', 'n3', 'n4'].map(k => `<span>${I18N.zh[k]} ${I18N.en[k]}</span><em>✦</em>`).join('')}</div>
+            <div class="ticker-set">${['n1', 'n2', 'n3', 'n4'].map(k => `<span>${t(k)}</span><em>✦</em>`).join('')}</div>
           </div>
         </div>
 
