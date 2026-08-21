@@ -870,17 +870,18 @@ img { max-width: 100%; display: block; }
     left: 240px;
     border-bottom: 1px solid var(--border-divider);
   }
-  .app-header { max-width: 1240px; padding: 0 var(--sp-spacious); }
+  .app-header { max-width: none; padding: 0 var(--sp-spacious); }
   .app-header .icon-btn[data-nav="back"] { display: none; }
 
   /* Hide mobile bottom nav; scroll in body */
   .bottom-bar-wrap { display: none; }
 
-  /* Main content: wide by default, narrower on detail/form pages */
+  /* Main content fills the area right of the sidebar; detail/form pages
+     opt into a narrower centered column via .main-narrow below. */
   .app-main {
-    max-width: 1240px;
+    max-width: none;
     margin-left: 240px;
-    margin-right: auto;
+    margin-right: 0;
     background: var(--bg-page);
     box-shadow: none;
     padding: calc(env(safe-area-inset-top, 0px) + var(--header-height)) var(--sp-spacious) var(--sp-spacious);
@@ -894,11 +895,11 @@ img { max-width: 100%; display: block; }
   .app-main .page { padding-top: var(--sp-spacious); }
   .app-main .profile-head { padding-left: 0; padding-right: 0; }
 
-  /* Multi-column card grids */
-  .card-grid { grid-template-columns: repeat(2, 1fr); gap: var(--sp-standard) var(--sp-spacious); }
+  /* Multi-column card grids — auto-fit so wide screens grow more columns */
+  .card-grid { grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: var(--sp-standard) var(--sp-spacious); }
   .card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
   .needs-grid { grid-template-columns: repeat(4, 1fr); }
-  .support-grid { grid-template-columns: repeat(2, 1fr); }
+  .support-grid { grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); }
 
   /* Detail pages breathe on desktop */
   .detail-hero { height: 220px; }
@@ -907,8 +908,8 @@ img { max-width: 100%; display: block; }
   .toast { left: auto; right: 24px; bottom: 24px; transform: none; }
   .toast.show { transform: none; }
 
-  /* FAB anchors to the right edge of the content column */
-  .fab { right: max(24px, calc(100vw - 1480px + 24px)); bottom: 24px; }
+  /* FAB anchors to the right edge of the viewport */
+  .fab { right: 24px; bottom: 24px; }
 }
 
 /* --- Reduced motion ----------------------------------------------------- */

@@ -78,8 +78,8 @@ python -m http.server 8000
 | | 移动端 `< 1024px` | 桌面端 `≥ 1024px` |
 | --- | --- | --- |
 | 主导航 | 底部 Tab 栏 | 固定左侧边栏（240px） |
-| 内容宽度 | 居中单列 520px | 最大 1240px |
-| 列表布局 | 单列卡片 | 2–3 列栅格 |
+| 内容宽度 | 居中单列 520px | 填满侧栏右侧整页，列表页按屏宽自适应多列 |
+| 列表布局 | 单列卡片 | 2–5 列栅格（按屏宽自适应） |
 | 详情 / 表单 | 单列 | 居中窄栏 760px |
 | 返回按钮 | 顶栏显示 | 隐藏（侧边栏承担导航） |
 | PWA 安装 | 支持 | 支持 |
@@ -246,8 +246,8 @@ A single codebase serves both experiences, switching at `1024px`:
 | | Mobile `< 1024px` | Desktop `≥ 1024px` |
 | --- | --- | --- |
 | Primary navigation | Bottom tab bar | Fixed left sidebar (240px) |
-| Content width | Centred 520px column | Up to 1240px |
-| List layout | Single-column cards | 2–3 column grid |
+| Content width | Centred 520px column | Full width right of the sidebar; list pages auto-fit columns |
+| List layout | Single-column cards | 2–5 column grid (auto-fit by viewport) |
 | Detail / forms | Single column | Centred 760px column |
 | Back button | Shown in header | Hidden (sidebar handles navigation) |
 | PWA install | Supported | Supported |
